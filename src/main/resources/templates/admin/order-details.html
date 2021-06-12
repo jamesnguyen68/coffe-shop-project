@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cofee Shop</title>
+<!-- font awesome -->
+<script src="https://kit.fontawesome.com/2c33ada39e.js"
+	crossorigin="anonymous"></script>
+
+<link rel="stylesheet" th:href="@{/css/styles.css}">
+<!-- custom css -->
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+
+<!-- custom css -->
+</head>
+<body>
+		
+	<nav class="navbar">
+		<div class="navbar-center">
+			<span class="nav-logo">Coffee <span class="nav-shop">Shop</span></span>
+			<a href="http://localhost:8080/products/list" class="nav-logo"> <i class="fas fa-home"></i></a>
+		</div>
+	</nav>
+	
+	<div class="container">
+		<h1>Order Details</h1>
+		<hr>
+		<h2>Order id: <span th:text="${order.id}"></span></h2>
+		<p>
+			Time ordered: <span th:text="${order.addDate}"></span><br>
+			Time Delivered: <span th:text="${order.deliverDate != null} ? ${order.deliverDate} : 'Undelivered'"></span>
+			<br>
+		</p>
+		<h2>Customer Details: </h2>
+		<p>
+			Name: <span th:text="${customer.name}"></span><br>
+			Address: <span th:text="${customer.address}"></span><br>
+			Phone Number: <span th:text="${customer.phoneNumber}"></span><br>
+		</p>
+		<h2>List of Products: </h2>
+		<table class="table table-striped table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th>Title</th>
+					<th>Price</th>
+					<th>Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="prod : ${theProducts}">
+					<td th:text="${prod.product.title}"></td>
+					<td th:text="${prod.product.price}"></td>
+					<td th:text="${prod.amount}"></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<table class="table table-striped table-bordered">
+			<thead>
+				<th>Total Cost</th>
+				<th><span th:text="${total}"></span>.000 VND</th>
+			</thead>
+		</table>
+		
+		<a type="button" class="btn btn-success" th:if="${status.id != 3}" th:href="@{/admin/deliverOrder(orderId=${order.id})}">
+			Deliver Order
+		</a>
+		<br>
+		<a class="btn btn-primary" th:href="@{/admin/orderList}">
+			Return to Admin Page
+		</a>
+		<br><br>
+	</div>
+	
+
+</body>
+</html>

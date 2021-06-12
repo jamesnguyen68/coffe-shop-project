@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cofee Shop</title>
+<!-- font awesome -->
+<script src="https://kit.fontawesome.com/2c33ada39e.js"
+	crossorigin="anonymous"></script>
+
+<link rel="stylesheet" th:href="@{/css/styles.css}">
+<!-- custom css -->
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+
+<!-- custom css -->
+</head>
+<body>
+	
+	<nav class="navbar">
+		<div class="navbar-center">
+			<a th:href="@{/products/list}" class="nav-logo"> <i class="fas fa-home"></i></a>
+			<span class="nav-logo">Coffee <span class="nav-shop">Shop</span></span>
+			<div class="nav-logo cart-btn"><i class="fas fa-cog"></i></div>
+		</div>
+	</nav>
+	<br>
+	<br>
+	<div class="container">
+	<h1>ADMIN PAGE</h1>
+	<hr>
+	
+	<table class="table table-striped table-bordered">
+		<thead class="table-dark">
+			<tr>
+				<th>Order id</th>
+				<th>Customer name</th>
+				<th>Customer address</th>
+				<th>Customer phone Number</th>
+				<th>Status</th>
+				<th>Details</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="order : ${orders}">
+				<td th:if="${order.theCustomer != null}" th:text="${order.id}"></td>
+				<td th:if="${order.theCustomer != null}" th:text="${order.theCustomer.name}"></td> 
+				<td th:if="${order.theCustomer != null}" th:text="${order.theCustomer.address}"></td> 
+				<td th:if="${order.theCustomer != null}" th:text="${order.theCustomer.phoneNumber}"></td> 
+				<td th:if="${order.theCustomer != null}" th:text="${order.status.name}"></td> 
+				<td th:if="${order.theCustomer != null}">
+					<a th:href="@{/admin/viewDetails(orderId=${order.id})}" class="btn btn-secondary" >
+						View Details
+					</a>
+				</td> 
+			</tr>
+		</tbody>	
+	</table>
+	
+	<div class="cart-overlay">
+		<div class="cart">
+			<span class="close-cart"> <i class="fas fa-window-close"></i>
+			</span>
+			<h2>Admin</h2>
+			<div class="cart-footer">
+				<a th:href="@{/admin/showStatistics}" class="purchase-btn banner-btn">statistics</a>
+			</div>
+		</div>
+	</div>
+	
+	
+	<br><br>
+	<a th:href="@{/admin/clearAllOrders}" class="btn btn-success" onclick="if(!confirm('Are you sure to delete all orders?')) return false;">Clear All Orders</a>
+	<br><br>
+	</div>
+	<script type="text/javascript">
+	 	const closeCartBtn = document.querySelector('.close-cart');
+	 	const cartBtn = document.querySelector('.cart-btn');
+	 	const cartOverlay = document.querySelector('.cart-overlay');
+	 	const cartDOM = document.querySelector('.cart');
+	 	
+	 	document.addEventListener("DOMContentLoaded", () => {
+	 		cartBtn.addEventListener("click", () => {
+	 			cartOverlay.classList.add('transparentBcg');
+	 			cartDOM.classList.add('showCart');
+	 		});
+	 		closeCartBtn.addEventListener('click', () => {
+	 			cartOverlay.classList.remove('transparentBcg');
+	 	        cartDOM.classList.remove('showCart');
+	 		});
+	 	});
+	 
+	 	
+	</script>
+</body>
+</html>

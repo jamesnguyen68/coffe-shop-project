@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cofee Shop</title>
+<!-- font awesome -->
+<script src="https://kit.fontawesome.com/2c33ada39e.js"
+	crossorigin="anonymous"></script>
+
+<link rel="stylesheet" th:href="@{/css/styles.css}">
+<!-- custom css -->
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+
+<!-- custom css -->
+</head>
+<body>
+
+	<nav class="navbar">
+		<div class="navbar-center">
+			<a th:href="@{/admin/orderList}" class="nav-logo"> <i class="fas fa-user-shield"></i></a>
+			<span class="nav-logo">Coffee <span class="nav-shop">Shop</span></span>
+			<div class="nav-logo cart-btn"><i class="fas fa-cog"></i></div>
+		</div>
+	</nav>
+	
+	
+	
+	<div class="container">
+	<br>
+		<h1>Statistics</h1>
+		<table class="table table-striped table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th>Day</th>
+					<th>total orders</th>
+					<th>total sales</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="stat: ${statistics}">
+					<td th:text="${stat.date}"></td>
+					<td th:text="${stat.numOrders}"></td>
+					<td><span th:text="${stat.profit}"></span>.000 VND</td>
+				</tr>
+			</tbody>
+		
+		</table>
+		
+	</div>
+	<div class="cart-overlay">
+		<div class="cart">
+			<span class="close-cart"> <i class="fas fa-window-close"></i>
+			</span>
+			<h2>Admin</h2>
+			<div class="cart-footer">
+				<a th:href="@{/admin/orderList}" class="purchase-btn banner-btn">Order List</a>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	const closeCartBtn = document.querySelector('.close-cart');
+ 	const cartBtn = document.querySelector('.cart-btn');
+ 	const cartOverlay = document.querySelector('.cart-overlay');
+ 	const cartDOM = document.querySelector('.cart');
+ 	
+ 	document.addEventListener("DOMContentLoaded", () => {
+ 		cartBtn.addEventListener("click", () => {
+ 			cartOverlay.classList.add('transparentBcg');
+ 			cartDOM.classList.add('showCart');
+ 		});
+ 		closeCartBtn.addEventListener('click', () => {
+ 			cartOverlay.classList.remove('transparentBcg');
+ 	        cartDOM.classList.remove('showCart');
+ 		});
+ 	});
+ 
+ 	
+	</script>
+</body>
+</html>
